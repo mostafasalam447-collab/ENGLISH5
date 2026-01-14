@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار الشامل: صح أم خطأ (58 سؤال)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 0; line-height: 1.6; }
+        
+        .stats-bar { position: sticky; top: 0; background: #2c3e50; color: white; padding: 12px 20px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; }
+        .stat-label { font-size: 0.75em; opacity: 0.8; }
+        .stat-value { font-size: 1.3em; font-weight: bold; }
+        .stat-correct { color: #2ecc71; }
+        .stat-wrong { color: #e74c3c; }
+
+        .container { max-width: 900px; margin: 20px auto; padding: 0 20px 40px; }
+        header { background: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        header h1 { color: #2c3e50; margin-bottom: 10px; }
+
+        .question-block { background: white; border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .question-number { background: #3498db; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 15px; display: inline-block; }
+        .question-text { color: #2c3e50; font-size: 1.2em; margin-bottom: 10px; font-weight: bold; text-align: left; direction: ltr; }
+        .question-arabic { color: #5a6263; font-size: 1em; margin-bottom: 20px; padding: 10px; background: #f0f3f5; border-right: 4px solid #3498db; border-radius: 4px; }
+        
+        .options-tf { display: flex; gap: 15px; }
+        .option-btn { flex: 1; padding: 15px; border: 2px solid #ecf0f1; border-radius: 10px; cursor: pointer; text-align: center; font-weight: bold; transition: 0.3s; background: #f8f9fa; }
+        .option-btn:hover:not(.disabled) { background: #eef2f3; border-color: #3498db; }
+        
+        .correct { background: #d5f4e6 !important; border-color: #2ecc71 !important; color: #27ae60; }
+        .wrong { background: #fadbd8 !important; border-color: #e74c3c !important; color: #c0392b; }
+        .disabled { cursor: not-allowed; opacity: 0.8; }
+
+        .explanation { margin-top: 15px; padding: 15px; background: #fffde7; border-radius: 10px; color: #856404; border-right: 5px solid #f1c40f; display: none; font-size: 0.95em; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="stats-bar">
+        <div class="stat-item"><span class="stat-label">✓ صح</span><span class="stat-value stat-correct" id="correctCount">0</span></div>
+        <div class="stat-item"><span class="stat-label">✗ غلط</span><span class="stat-value stat-wrong" id="wrongCount">0</span></div>
+        <div class="stat-item"><span class="stat-label">الإجمالي</span><span class="stat-value"><span id="answeredCount">0</span>/58</span></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🩺 الاختبار الطبي الشامل (T/F)</h1>
+            <p>جميع الأسئلة الـ 58 مدمجة في ملف واحد</p>
+        </header>
+        <div id="questionsContainer"></div>
+    </div>
+
+<script>
+const questions = [
+    { n: 1, q: "The sagittal plane divides the body into right and left halves.", a: "المستوى السهمي يقسم الجسم إلى نصفين أيمن وأيسر.", ans: true, exp: "الـ Sagittal plane هو المستوى الطولي الذي يفصل اليمين عن اليسار." },
+    { n: 2, q: "The coronal plane divides the body into anterior and posterior parts.", a: "المستوى الإكليلي يقسم الجسم إلى أجزاء أمامية وخلفية.", ans: true, exp: "الـ Coronal (أو Frontal) يفصل الأمام عن الخلف." },
+    { n: 3, q: "The prefix pre- means 'after.'", a: "البادئة pre- تعني 'بعد'.", ans: false, exp: "Pre- تعني 'قبل' (Before)، أما 'بعد' فهي Post-." },
+    { n: 4, q: "The suffix -itis means inflammation.", a: "اللاحقة -itis تعني التهاب.", ans: true, exp: "أي كلمة تنتهي بـ itis تشير لالتهاب مثل Gastritis." },
+    { n: 5, q: "The term posterior means 'toward the front.'", a: "مصطلح posterior يعني 'نحو الأمام'.", ans: false, exp: "Posterior تعني نحو الخلف، أما نحو الأمام فهي Anterior." },
+    { n: 6, q: "The prefix anti- means 'against.'", a: "البادئة anti- تعني 'ضد'.", ans: true, exp: "مثل Antibiotic (مضاد حيوي)." },
+    { n: 7, q: "The combining form derm/o means 'skin.'", a: "الصيغة المركبة derm/o تعني 'جلد'.", ans: true, exp: "منها يشتق علم الجلد Dermatology." },
+    { n: 8, q: "The term hepatitis refers to inflammation of the kidneys.", a: "مصطلح hepatitis يشير إلى التهاب الكلى.", ans: false, exp: "Hepat تعني كبد. التهاب الكلى هو Nephritis." },
+    { n: 9, q: "The term gastritis refers to inflammation of the stomach.", a: "مصطلح gastritis يشير إلى التهاب المعدة.", ans: true, exp: "Gastr تعني معدة و itis تعني التهاب." },
+    { n: 10, q: "Cardiomegaly means enlargement of the liver.", a: "Cardiomegaly يعني تضخم الكبد.", ans: false, exp: "Cardio تعني قلب. تضخم الكبد هو Hepatomegaly." },
+    { n: 11, q: "The prefix tachy- means 'fast.'", a: "البادئة tachy- تعني 'سريع'.", ans: true, exp: "مثل Tachycardia (تسارع نبضات القلب)." },
+    { n: 12, q: "The prefix brady- means 'slow.'", a: "البادئة brady- تعني 'بطيء'.", ans: true, exp: "مثل Bradycardia (بطء نبضات القلب)." },
+    { n: 13, q: "The suffix -oma means tumor.", a: "اللاحقة -oma تعني ورم.", ans: true, exp: "تشير إلى كتلة أو ورم." },
+    { n: 14, q: "The cranial cavity contains the brain.", a: "التجويف القحفي يحتوي على الدماغ.", ans: true, exp: "القحف هو عظام الجمجمة التي تحمي الدماغ." },
+    { n: 15, q: "The epidermis is the outermost layer of the skin.", a: "البشرة هي الطبقة الخارجية من الجلد.", ans: true, exp: "Epi تعني 'فوق' وهي الطبقة السطحية." },
+    { n: 16, q: "The lungs are part of the digestive system.", a: "الرئتان جزء من الجهاز الهضمي.", ans: false, exp: "الرئتان جزء من الجهاز التنفسي (Respiratory system)." },
+    { n: 17, q: "The stomach is part of the digestive system.", a: "المعدة جزء من الجهاز الهضمي.", ans: true, exp: "هي العضو الرئيسي لهضم الطعام." },
+    { n: 18, q: "Appendicitis means inflammation of the appendix.", a: "Appendicitis يعني التهاب الزائدة الدودية.", ans: true, exp: "Appendix (زائدة) + itis (التهاب)." },
+    { n: 19, q: "The heart is part of the respiratory system.", a: "القلب جزء من الجهاز التنفسي.", ans: false, exp: "القلب جزء من جهاز الدوران (Circulatory system)." },
+    { n: 20, q: "A leukocyte is a white blood cell.", a: "Leukocyte هي خلية دم بيضاء.", ans: true, exp: "Leuko تعني أبيض و Cyte تعني خلية." },
+    { n: 21, q: "The diaphragm helps in breathing.", a: "الحجاب الحاجز يساعد في التنفس.", ans: true, exp: "هو العضلة الرئيسية للشهيق والزفير." },
+    { n: 22, q: "Myalgia means muscle pain.", a: "Myalgia تعني ألم العضلات.", ans: true, exp: "My تعني عضلة و Algia تعني ألم." },
+    { n: 23, q: "The term cyanosis refers to blue discoloration of the skin.", a: "مصطلح cyanosis يشير إلى ازرقاق الجلد.", ans: true, exp: "تحدث بسبب نقص الأكسجين." },
+    { n: 24, q: "The prefix sub- means 'above.'", a: "البادئة sub- تعني 'فوق'.", ans: false, exp: "Sub تعني 'تحت'، أما 'فوق' فهي Supra." },
+    { n: 31, q: "The suffix -scopy refers to the surgical removal of an organ.", a: "اللاحقة -scopy تشير للاستئصال الجراحي.", ans: false, exp: "-scopy تعني 'فحص بالمنظار'. الاستئصال هو -ectomy." },
+    { n: 32, q: "The prefix peri- means around.", a: "البادئة peri- تعني حول.", ans: true, exp: "مثل Pericardium (المحيط بالقلب)." },
+    { n: 33, q: "Nephritis is inflammation of the liver.", a: "Nephritis هو التهاب الكبد.", ans: false, exp: "Nephr تعني كلية. التهاب الكبد هو Hepatitis." },
+    { n: 34, q: "The term dyspnea refers to difficulty in breathing.", a: "مصطلح dyspnea يشير إلى صعوبة في التنفس.", ans: true, exp: "Dys- تعني صعوبة، و -pnea تعني تنفس." },
+    { n: 35, q: "Enteritis is inflammation of the intestines.", a: "Enteritis هو التهاب الأمعاء.", ans: true, exp: "Enter/o تعني أمعاء." },
+    { n: 36, q: "The pericardium surrounds the heart.", a: "غشاء التأمور يحيط بالقلب.", ans: true, exp: "غشاء واقٍ يغلف عضلة القلب." },
+    { n: 37, q: "The term hematology refers to the study of blood.", a: "مصطلح hematology يشير إلى دراسة الدم.", ans: true, exp: "Hemat/o تعني دم." },
+    { n: 38, q: "Bronchitis is inflammation of the bronchi.", a: "Bronchitis هو التهاب الشعب الهوائية.", ans: true, exp: "يصيب الممرات الهوائية الكبيرة بالرئة." },
+    { n: 39, q: "The term phlebitis refers to a disease of the kidneys.", a: "مصطلح phlebitis يشير إلى مرض في الكلى.", ans: false, exp: "Phleb تعني وريد. التهاب الوريد." },
+    { n: 40, q: "Myopathy refers to a disease of the nerves.", a: "Myopathy يشير إلى مرض في الأعصاب.", ans: false, exp: "My/o تعني عضلة. مرض الأعصاب هو Neuropathy." },
+    { n: 41, q: "The prefix retro- means behind.", a: "البادئة retro- تعني خلف.", ans: true, exp: "مثل الأعضاء التي تقع خلف الصفاق." },
+    { n: 42, q: "The term neoplasm always indicates cancer.", a: "مصطلح neoplasm يشير دائماً إلى السرطان.", ans: false, exp: "قد يكون النيوبلازم (الورم) حميداً وليس دائماً خبيثاً." },
+    { n: 43, q: "The term hemostasis means stopping bleeding.", a: "مصطلح hemostasis يعني إيقاف النزيف.", ans: true, exp: "عملية حيوية لإيقاف نزف الدم." },
+    { n: 44, q: "The combining form lip/o refers to sugar.", a: "الصيغة المركبة lip/o تشير إلى السكر.", ans: false, exp: "Lip/o تشير للدهون. السكر هو Glyc/o." },
+    { n: 45, q: "The prefix poly- means few.", a: "البادئة poly- تعني قليل.", ans: false, exp: "Poly- تعني متعدد أو كثير." },
+    { n: 55, q: "Pancreatitis refers to inflammation of the bile duct.", a: "Pancreatitis يشير إلى التهاب القناة الصفراوية.", ans: false, exp: "هو التهاب البنكرياس." },
+    { n: 56, q: "Osteomyelitis involves inflammation of bone and bone marrow.", a: "Osteomyelitis يتضمن التهاب العظم ونخاع العظم.", ans: true, exp: "التهاب ناتج عادة عن عدوى بكتيرية بالعظم." },
+    { n: 57, q: "Polyneuropathy affects only one nerve.", a: "Polyneuropathy يؤثر على عصب واحد فقط.", ans: false, exp: "Poly تعني متعدد، لذا يصيب أعصاباً كثيرة." },
+    { n: 58, q: "Cardiomyopathy refers to a disease of the heart muscle.", a: "Cardiomyopathy يشير إلى مرض في عضلة القلب.", ans: true, exp: "حالة تضعف قدرة القلب على ضخ الدم." }
+];
+
+let stats = { correct: 0, wrong: 0, total: 0 };
+
+function check(qNum, userAns, correctAns, event) {
+    const block = document.getElementById(`q-${qNum}`);
+    const buttons = block.querySelectorAll('.option-btn');
+    const exp = document.getElementById(`exp-${qNum}`);
+    
+    if (buttons[0].classList.contains('disabled')) return;
+
+    stats.total++;
+    if (userAns === correctAns) {
+        stats.correct++;
+        event.target.classList.add('correct');
+    } else {
+        stats.wrong++;
+        event.target.classList.add('wrong');
+        buttons[correctAns ? 0 : 1].classList.add('correct');
+    }
+
+    buttons.forEach(b => b.classList.add('disabled'));
+    exp.style.display = 'block';
+    
+    document.getElementById('correctCount').textContent = stats.correct;
+    document.getElementById('wrongCount').textContent = stats.wrong;
+    document.getElementById('answeredCount').textContent = stats.total;
+}
+
+const container = document.getElementById('questionsContainer');
+questions.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+    div.id = `q-${q.n}`;
+    div.innerHTML = `
+        <div class="question-number">سؤال ${q.n}</div>
+        <div class="question-text">${q.q}</div>
+        <div class="question-arabic">${q.a}</div>
+        <div class="options-tf">
+            <div class="option-btn" onclick="check(${q.n}, true, ${q.ans}, event)">صح (True)</div>
+            <div class="option-btn" onclick="check(${q.n}, false, ${q.ans}, event)">خطأ (False)</div>
+        </div>
+        <div class="explanation" id="exp-${q.n}">💡 <b>التفسير:</b> ${q.exp}</div>
+    `;
+    container.appendChild(div);
+});
+</script>
+</body>
+</html>
