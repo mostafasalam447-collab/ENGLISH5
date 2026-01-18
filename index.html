@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاختبار الشامل: صح أم خطأ (58 سؤال)</title>
+    <title>الاختبار الشامل: صح أم خطأ (43 سؤال)</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 0; line-height: 1.6; }
@@ -47,7 +47,7 @@
     <div class="container">
         <header>
             <h1>🩺 اختبار الإنجليزي الطبي (T/F)</h1>
-            <p>  اختبار الإنجليزي الطبي الجزء الرابع – صح / خطأ (58سؤال)
+            <p>  اختبار الإنجليزي الطبي الجزء الرابع – صح / خطأ (43سؤال)
 رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي – [طه: 25-26]"</p>
         </header>
         <div id="questionsContainer"></div>
@@ -79,25 +79,25 @@ const questions = [
     { n: 22, q: "Myalgia means muscle pain.", a: "Myalgia تعني ألم العضلات.", ans: true, exp: "My تعني عضلة و Algia تعني ألم." },
     { n: 23, q: "The term cyanosis refers to blue discoloration of the skin.", a: "مصطلح cyanosis يشير إلى ازرقاق الجلد.", ans: true, exp: "تحدث بسبب نقص الأكسجين." },
     { n: 24, q: "The prefix sub- means 'above.'", a: "البادئة sub- تعني 'فوق'.", ans: false, exp: "Sub تعني 'تحت'، أما 'فوق' فهي Supra." },
-    { n: 31, q: "The suffix -scopy refers to the surgical removal of an organ.", a: "اللاحقة -scopy تشير للاستئصال الجراحي.", ans: false, exp: "-scopy تعني 'فحص بالمنظار'. الاستئصال هو -ectomy." },
-    { n: 32, q: "The prefix peri- means around.", a: "البادئة peri- تعني حول.", ans: true, exp: "مثل Pericardium (المحيط بالقلب)." },
-    { n: 33, q: "Nephritis is inflammation of the liver.", a: "Nephritis هو التهاب الكبد.", ans: false, exp: "Nephr تعني كلية. التهاب الكبد هو Hepatitis." },
-    { n: 34, q: "The term dyspnea refers to difficulty in breathing.", a: "مصطلح dyspnea يشير إلى صعوبة في التنفس.", ans: true, exp: "Dys- تعني صعوبة، و -pnea تعني تنفس." },
-    { n: 35, q: "Enteritis is inflammation of the intestines.", a: "Enteritis هو التهاب الأمعاء.", ans: true, exp: "Enter/o تعني أمعاء." },
-    { n: 36, q: "The pericardium surrounds the heart.", a: "غشاء التأمور يحيط بالقلب.", ans: true, exp: "غشاء واقٍ يغلف عضلة القلب." },
-    { n: 37, q: "The term hematology refers to the study of blood.", a: "مصطلح hematology يشير إلى دراسة الدم.", ans: true, exp: "Hemat/o تعني دم." },
-    { n: 38, q: "Bronchitis is inflammation of the bronchi.", a: "Bronchitis هو التهاب الشعب الهوائية.", ans: true, exp: "يصيب الممرات الهوائية الكبيرة بالرئة." },
-    { n: 39, q: "The term phlebitis refers to a disease of the kidneys.", a: "مصطلح phlebitis يشير إلى مرض في الكلى.", ans: false, exp: "Phleb تعني وريد. التهاب الوريد." },
-    { n: 40, q: "Myopathy refers to a disease of the nerves.", a: "Myopathy يشير إلى مرض في الأعصاب.", ans: false, exp: "My/o تعني عضلة. مرض الأعصاب هو Neuropathy." },
-    { n: 41, q: "The prefix retro- means behind.", a: "البادئة retro- تعني خلف.", ans: true, exp: "مثل الأعضاء التي تقع خلف الصفاق." },
-    { n: 42, q: "The term neoplasm always indicates cancer.", a: "مصطلح neoplasm يشير دائماً إلى السرطان.", ans: false, exp: "قد يكون النيوبلازم (الورم) حميداً وليس دائماً خبيثاً." },
-    { n: 43, q: "The term hemostasis means stopping bleeding.", a: "مصطلح hemostasis يعني إيقاف النزيف.", ans: true, exp: "عملية حيوية لإيقاف نزف الدم." },
-    { n: 44, q: "The combining form lip/o refers to sugar.", a: "الصيغة المركبة lip/o تشير إلى السكر.", ans: false, exp: "Lip/o تشير للدهون. السكر هو Glyc/o." },
-    { n: 45, q: "The prefix poly- means few.", a: "البادئة poly- تعني قليل.", ans: false, exp: "Poly- تعني متعدد أو كثير." },
-    { n: 55, q: "Pancreatitis refers to inflammation of the bile duct.", a: "Pancreatitis يشير إلى التهاب القناة الصفراوية.", ans: false, exp: "هو التهاب البنكرياس." },
-    { n: 56, q: "Osteomyelitis involves inflammation of bone and bone marrow.", a: "Osteomyelitis يتضمن التهاب العظم ونخاع العظم.", ans: true, exp: "التهاب ناتج عادة عن عدوى بكتيرية بالعظم." },
-    { n: 57, q: "Polyneuropathy affects only one nerve.", a: "Polyneuropathy يؤثر على عصب واحد فقط.", ans: false, exp: "Poly تعني متعدد، لذا يصيب أعصاباً كثيرة." },
-    { n: 58, q: "Cardiomyopathy refers to a disease of the heart muscle.", a: "Cardiomyopathy يشير إلى مرض في عضلة القلب.", ans: true, exp: "حالة تضعف قدرة القلب على ضخ الدم." }
+    { n: 25, q: "The suffix -scopy refers to the surgical removal of an organ.", a: "اللاحقة -scopy تشير للاستئصال الجراحي.", ans: false, exp: "-scopy تعني 'فحص بالمنظار'. الاستئصال هو -ectomy." },
+    { n: 26, q: "The prefix peri- means around.", a: "البادئة peri- تعني حول.", ans: true, exp: "مثل Pericardium (المحيط بالقلب)." },
+    { n: 27, q: "Nephritis is inflammation of the liver.", a: "Nephritis هو التهاب الكبد.", ans: false, exp: "Nephr تعني كلية. التهاب الكبد هو Hepatitis." },
+    { n: 28, q: "The term dyspnea refers to difficulty in breathing.", a: "مصطلح dyspnea يشير إلى صعوبة في التنفس.", ans: true, exp: "Dys- تعني صعوبة، و -pnea تعني تنفس." },
+    { n: 29, q: "Enteritis is inflammation of the intestines.", a: "Enteritis هو التهاب الأمعاء.", ans: true, exp: "Enter/o تعني أمعاء." },
+    { n: 30, q: "The pericardium surrounds the heart.", a: "غشاء التأمور يحيط بالقلب.", ans: true, exp: "غشاء واقٍ يغلف عضلة القلب." },
+    { n: 31, q: "The term hematology refers to the study of blood.", a: "مصطلح hematology يشير إلى دراسة الدم.", ans: true, exp: "Hemat/o تعني دم." },
+    { n: 32, q: "Bronchitis is inflammation of the bronchi.", a: "Bronchitis هو التهاب الشعب الهوائية.", ans: true, exp: "يصيب الممرات الهوائية الكبيرة بالرئة." },
+    { n: 33, q: "The term phlebitis refers to a disease of the kidneys.", a: "مصطلح phlebitis يشير إلى مرض في الكلى.", ans: false, exp: "Phleb تعني وريد. التهاب الوريد." },
+    { n: 34, q: "Myopathy refers to a disease of the nerves.", a: "Myopathy يشير إلى مرض في الأعصاب.", ans: false, exp: "My/o تعني عضلة. مرض الأعصاب هو Neuropathy." },
+    { n: 35, q: "The prefix retro- means behind.", a: "البادئة retro- تعني خلف.", ans: true, exp: "مثل الأعضاء التي تقع خلف الصفاق." },
+    { n: 36, q: "The term neoplasm always indicates cancer.", a: "مصطلح neoplasm يشير دائماً إلى السرطان.", ans: false, exp: "قد يكون النيوبلازم (الورم) حميداً وليس دائماً خبيثاً." },
+    { n: 37, q: "The term hemostasis means stopping bleeding.", a: "مصطلح hemostasis يعني إيقاف النزيف.", ans: true, exp: "عملية حيوية لإيقاف نزف الدم." },
+    { n: 38, q: "The combining form lip/o refers to sugar.", a: "الصيغة المركبة lip/o تشير إلى السكر.", ans: false, exp: "Lip/o تشير للدهون. السكر هو Glyc/o." },
+    { n: 39, q: "The prefix poly- means few.", a: "البادئة poly- تعني قليل.", ans: false, exp: "Poly- تعني متعدد أو كثير." },
+    { n: 40, q: "Pancreatitis refers to inflammation of the bile duct.", a: "Pancreatitis يشير إلى التهاب القناة الصفراوية.", ans: false, exp: "هو التهاب البنكرياس." },
+    { n: 41, q: "Osteomyelitis involves inflammation of bone and bone marrow.", a: "Osteomyelitis يتضمن التهاب العظم ونخاع العظم.", ans: true, exp: "التهاب ناتج عادة عن عدوى بكتيرية بالعظم." },
+    { n: 42, q: "Polyneuropathy affects only one nerve.", a: "Polyneuropathy يؤثر على عصب واحد فقط.", ans: false, exp: "Poly تعني متعدد، لذا يصيب أعصاباً كثيرة." },
+    { n: 43, q: "Cardiomyopathy refers to a disease of the heart muscle.", a: "Cardiomyopathy يشير إلى مرض في عضلة القلب.", ans: true, exp: "حالة تضعف قدرة القلب على ضخ الدم." }
 ];
 
 let stats = { correct: 0, wrong: 0, total: 0 };
